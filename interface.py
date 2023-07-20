@@ -54,10 +54,6 @@ class BotInterface():
                     self.params = self.vk_tools.get_profile_info(event.user_id)
                     self.message_send(
                         event.user_id, f'Приветствую тебя {self.params["name"]} в это непростое время.')               
-                    self.keys = self.params.keys()
-                    for inf in self.keys:
-                        if self.params[inf] is None:
-                            self.params[inf] = self(event)
                     self.message_send(event.user_id, 'Напиши "Поиск" и ты найдешь себе пару.')
                 elif event.text.lower() == 'поиск':
 
