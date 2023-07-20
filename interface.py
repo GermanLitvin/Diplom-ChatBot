@@ -32,7 +32,7 @@ class BotInterface():
             photo_string += f'photo{photo["owner_id"]}_{photo["id"]},'
         return photo_string
 
-#Добавление и проверка БД.
+#  Добавление и проверка БД.
     def get_profile(self, worksheets, event):
         while True:           
             if worksheets:
@@ -44,13 +44,13 @@ class BotInterface():
                 worksheets = self.vk_tools.search_worksheet(
                     self.params, self.offset)
 
-# обработка событий / получение сообщений
+# Jбработка событий / получение сообщений.
     def event_handler(self):
         for event in self.longpoll.listen():
             if event.type == VkEventType.MESSAGE_NEW and event.to_me:
                 if event.text.lower() == 'привет':
 
-                    '''Логика для получения данных о пользователе'''
+# Логика для получения данных о пользователе.
                     self.params = self.vk_tools.get_profile_info(event.user_id)
                     self.message_send(
                         event.user_id, f'Приветствую тебя {self.params["name"]} в это непростое время.')               
@@ -61,7 +61,7 @@ class BotInterface():
                     self.message_send(event.user_id, 'Напиши "Поиск" и ты найдешь себе пару.')
                 elif event.text.lower() == 'поиск':
 
-                    #Логика для поиска анкет
+# Логика для поиска анкет.
                     try:
                         self.message_send(
                             event.user_id, 'Активация поиска.')
