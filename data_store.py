@@ -16,14 +16,14 @@ class Viewed(Base):
     worksheet_id = sq.Column(sq.Integer, primary_key=True)
 
 
-# добавление записи в БД
+# Добавление записи в БД.
 def add_user(engine, profile_id, worksheet_id):
     with Session(engine) as session:
         to_bd = Viewed(profile_id=profile_id, worksheet_id=worksheet_id)
         session.add(to_bd)
         session.commit()
 
-# проверка записей в БД
+# Проверка записей в БД.
 def check_user(engine, profile_id, worksheet_id):
     with Session(engine) as session:
         from_bd = session.query(Viewed).filter(
