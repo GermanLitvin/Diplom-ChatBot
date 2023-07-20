@@ -5,18 +5,18 @@ from config import acces_token
 
 import vk_api
 
-# получение данных о пользователе
+# Получение данных о пользователе.
 class VkTools:
     def __init__(self, acces_token):
         self.vkapi = vk_api.VkApi(token=acces_token)
 
-    #Вычисление возраста.
+# Вычисление возраста.
     def _bdate_toyear(salf, bdate):
         user_year = bdate.split('.')[2]
         now = datetime.now().year
         return now - int(user_year)
     
-    #Вычисление параметров.
+# Вычисление параметров.
     def get_profile_info(self, user_id):
         try:
             info, = self.vkapi.method('users.get',
@@ -37,7 +37,7 @@ class VkTools:
                   }
         return result
     
-    #Вычисление параметров.
+# Вычисление параметров.
     def search_worksheet(self,params,offset):
         try:
             users = self.vkapi.method('users.search',
@@ -54,7 +54,7 @@ class VkTools:
             user =[]
             print(f'Хьюстон, у нас проблемы = {e}.')
 
-        #Причесали поиск.
+# Причесали поиск.
         result = [{'name': item['first_name']+ item['last_name'],
                     'id': item['id']
                     } 
@@ -62,7 +62,7 @@ class VkTools:
                  ]       
         return result
 
-    #Поиск фото.
+# Поиск фото.
     def get_photos(self, id):
         try:
             photos = self.vkapi.method('photos.get',
@@ -75,7 +75,7 @@ class VkTools:
             photos ={}
             print(f'Хьюстон, у нас проблемы = {e}.')
 
-        #Параметры фото.
+# Параметры фото.
         result = [{'owner_id': item['owner_id'],
                    'id': item['id'],
                    'likes': item['likes']['count'],
@@ -83,7 +83,7 @@ class VkTools:
                     } for item in photos['items']
                    ]
         
-        #Здесь сортируем по лайкам и коментариям. 
+# Здесь сортируем по лайкам и коментариям. 
         result.sort(key=lambda x: (x['likes'] + x['comments']), reverse=True)
         return result[:3]
         
